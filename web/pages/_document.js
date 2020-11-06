@@ -10,6 +10,19 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174218290-1" />
+
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag() {
+                  dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
+                gtag('config', 'UA-174218290-1');`,
+            }}
+          />
           <link
             href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,700&display=swap"
             rel="stylesheet"

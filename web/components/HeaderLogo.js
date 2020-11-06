@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // import isMobile from 'react-device-detect';
 
 const LogoStyles = styled.div`
-  perspective: 500px;
+  perspective: 400px;
   transform-style: preserve-3d;
   position: relative;
   width: 100%;
@@ -28,11 +28,17 @@ const LogoStyles = styled.div`
     height: calc(100% - var(--offset));
   }
 
+  .logo:nth-child(1) {
+    /* transform: translate(0, 0); */
+    transform: translate3d(0, 0, -40px);
+  }
   .logo:nth-child(2) {
-    transform: translate(calc(var(--offset) / 2), calc(var(--offset) / 2));
+    /* transform: translate(calc(var(--offset) / 2), calc(var(--offset) / 2)); */
+    transform: translate3d(calc(var(--offset) / 2), calc(var(--offset) / 2), -20px);
   }
   .logo:nth-child(3) {
-    transform: translate(var(--offset), var(--offset));
+    /* transform: translate(var(--offset), var(--offset)); */
+    transform: translate3d(var(--offset), var(--offset), 0px);
   }
 
   @media (min-width: 800px) {

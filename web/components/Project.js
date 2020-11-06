@@ -9,10 +9,6 @@ function urlFor(source) {
 const ProjectStyles = styled.div`
   border-radius: 5px;
   margin-bottom: var(--pad);
-  /* overflow: hidden; */
-  &:last-child {
-    margin-bottom: 0;
-  }
 
   .project-container {
     width: 100%;
@@ -25,6 +21,11 @@ const ProjectStyles = styled.div`
     position: relative;
   }
 
+  a {
+    display: block;
+    height: 100%;
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -34,14 +35,14 @@ const ProjectStyles = styled.div`
   height: var(--grid-height);
 
   .hover-title {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.2s;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -54,9 +55,16 @@ const ProjectStyles = styled.div`
 
   @media (hover: hover) and (pointer: fine) {
     .project-container:hover {
-      /* box-shadow: 0px 3px 5px 3px rgba(0, 0, 0, 0.3); */
       .hover-title {
         opacity: 1;
+      }
+    }
+  }
+
+  @media (min-width: 430px) {
+    .project-container {
+      .hover-title {
+        opacity: 0;
       }
     }
   }

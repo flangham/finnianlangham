@@ -50,7 +50,7 @@ const HeaderStyles = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 540px;
+    min-height: 600px;
     .arrow {
       position: absolute;
       bottom: var(--pad);
@@ -84,7 +84,10 @@ const HeaderStyles = styled.header`
   }
 
   @media (min-width: 1000px) {
-    min-height: 610px;
+    min-height: 685px;
+    .arrow {
+      font-size: 126px;
+    }
   }
 
   @media (min-width: 1400px) {

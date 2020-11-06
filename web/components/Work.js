@@ -12,6 +12,7 @@ const WorkStyles = styled.section`
     grid-template-columns: repeat(auto-fill, var(--grid-width));
     grid-gap: calc(var(--pad) / 2) calc(var(--pad) * 2);
     max-width: 1200px;
+    margin: 0 auto var(--pad);
     margin: auto;
   }
 `;
