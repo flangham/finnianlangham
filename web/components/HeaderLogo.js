@@ -1,34 +1,42 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import isMobile from 'react-device-detect';
 
 const LogoStyles = styled.div`
-  perspective: 1000px;
+  perspective: 500px;
   transform-style: preserve-3d;
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 100%;
+  max-width: 300px;
+  max-height: 300px;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1em;
+  display: block;
+  --offset: 20px;
 
   svg {
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
+    width: calc(100% - var(--offset));
+    height: calc(100% - var(--offset));
     max-width: 100%;
   }
 
   .logo {
     position: absolute;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
-    /* filter: drop-shadow(0px 10px 1px rgba(0, 0, 0, 0.5)); */
+    width: calc(100% - var(--offset));
+    height: calc(100% - var(--offset));
   }
 
   .logo:nth-child(2) {
-    transform: translate(20px, 20px);
+    transform: translate(calc(var(--offset) / 2), calc(var(--offset) / 2));
   }
   .logo:nth-child(3) {
-    transform: translate(40px, 40px);
+    transform: translate(var(--offset), var(--offset));
+  }
+
+  @media (min-width: 800px) {
+    --offset: 30px;
   }
 `;
 
@@ -37,6 +45,7 @@ export default function HeaderLogo() {
   const [style, setStyle] = useState({ transform: 'rotate3d(0, 0, 0, 0)' });
 
   const listnerFunction = function (e) {
+    if (isMobile) return;
     const windowX = window.innerWidth;
     const windowY = window.innerHeight;
     const mouseX = e.clientX - windowX / 2;

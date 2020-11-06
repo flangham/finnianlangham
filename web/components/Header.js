@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Link from 'next/link';
 import Container from './Container';
 import HeaderLogo from './HeaderLogo';
 
@@ -9,9 +8,6 @@ const HeaderStyles = styled.header`
   background: var(--blue);
   color: var(--white);
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   .col {
     display: flex;
@@ -19,8 +15,12 @@ const HeaderStyles = styled.header`
     flex-direction: column;
   }
 
+  .image-col {
+    height: 180px;
+  }
+
   .header-content {
-    max-width: 1200px;
+    max-width: 1300px;
     margin: auto;
   }
 
@@ -45,7 +45,16 @@ const HeaderStyles = styled.header`
     }
   }
 
+  @media (min-width: 430px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   @media (min-width: 800px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-height: 500px;
 
     .columns {
@@ -53,12 +62,26 @@ const HeaderStyles = styled.header`
       flex-direction: row-reverse;
     }
 
-    .col:nth-child(1) {
+    .image-col {
       width: 30%;
       padding-left: 1rem;
+      display: flex;
+      align-items: center;
+      height: 300px;
     }
-    .col:nth-child(2) {
+
+    justify-content: center;
+    .word-col {
       width: 70%;
+      max-width: 940px;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .word-col {
+      font-size: 40px;
+      max-width: 1200px;
+      width: 80%;
     }
   }
 `;
@@ -69,23 +92,14 @@ export default function Header() {
       <Container>
         <div className="header-content">
           <div className="columns">
-            <div className="col">
-              <div className="header-image-container">
-                <div className="header-image">
-                  <HeaderLogo />
-                </div>
-              </div>
+            <div className="col image-col">
+              <HeaderLogo />
             </div>
-            <div className="col">
+            <div className="col word-col">
               <h1>Finnian Langham</h1>
               <p>
-                is a front-end <span className="orange">developer</span> and <span className="orange">designer</span>.
+                is a front-end <span className="orange">developer</span> &amp; <span className="orange">designer</span>.
                 He primarily works with creatives, helping to make their digital visions a reality.
-                {/* <br />
-                He chronicals his adventures as well as handy tips and tutorials on a{' '}
-                <Link href="/blog">
-                  <a className="orange">blog</a>
-                </Link> */}
               </p>
             </div>
           </div>
