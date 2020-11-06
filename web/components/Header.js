@@ -77,9 +77,10 @@ const HeaderStyles = styled.header`
     }
 
     justify-content: center;
+
     .word-col {
       width: 70%;
-      max-width: 940px;
+      max-width: 750px;
     }
   }
 
@@ -87,6 +88,9 @@ const HeaderStyles = styled.header`
     min-height: 685px;
     .arrow {
       font-size: 126px;
+    }
+    .word-col {
+      max-width: 930px;
     }
   }
 
