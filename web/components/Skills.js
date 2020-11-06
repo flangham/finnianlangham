@@ -19,7 +19,7 @@ export default function Skills() {
           <li>Javascript, React, Next, Gatsby</li>
           <li>Custom WordPress themes</li>
           <li>Headless content management with Sanity</li>
-          <li>Automated deploymeny via GitHub</li>
+          <li>Automated deployment via GitHub</li>
           <li>Digital branding, wireframing</li>
         </ul>
       </Container>
