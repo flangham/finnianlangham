@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import isMobile from 'react-device-detect';
+// import isMobile from 'react-device-detect';
 
 const LogoStyles = styled.div`
   perspective: 500px;
@@ -45,7 +45,7 @@ export default function HeaderLogo() {
   const [style, setStyle] = useState({ transform: 'rotate3d(0, 0, 0, 0)' });
 
   const listnerFunction = function (e) {
-    if (isMobile) return;
+    if (window.innerWidth < 430) return;
     const windowX = window.innerWidth;
     const windowY = window.innerHeight;
     const mouseX = e.clientX - windowX / 2;
