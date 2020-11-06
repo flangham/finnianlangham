@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useEffect, useState } from 'react';
 import Container from './Container';
 import HeaderLogo from './HeaderLogo';
 
@@ -36,7 +37,6 @@ const HeaderStyles = styled.header`
   .arrow {
     font-size: 3em;
     position: absolute;
-    bottom: 0;
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -49,6 +49,7 @@ const HeaderStyles = styled.header`
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 540px;
   }
 
   @media (min-width: 800px) {
@@ -77,7 +78,12 @@ const HeaderStyles = styled.header`
     }
   }
 
+  @media (min-width: 1000px) {
+    min-height: 610px;
+  }
+
   @media (min-width: 1400px) {
+    min-height: 740px;
     .word-col {
       font-size: 40px;
       max-width: 1200px;
@@ -87,6 +93,24 @@ const HeaderStyles = styled.header`
 `;
 
 export default function Header() {
+  const [arrowStyle, setArrowStyle] = useState({ top: '0' });
+
+  useEffect(() => {
+    const checkHeight = () => {
+      const width = window.innerWidth;
+      if (width < 430) {
+        let distance = window.innerHeight - 70;
+        const threshold = 350;
+        if (distance < threshold) distance = threshold;
+        setArrowStyle({ top: `${distance}px` });
+      } else {
+        setArrowStyle({ bottom: 'var(--pad)' });
+      }
+    };
+    window.addEventListener('resize', checkHeight);
+    checkHeight();
+  }, []);
+
   return (
     <HeaderStyles>
       <Container>
@@ -104,7 +128,9 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <p className="arrow">↓</p>
+        <p className="arrow" style={arrowStyle}>
+          ↓
+        </p>
       </Container>
     </HeaderStyles>
   );
