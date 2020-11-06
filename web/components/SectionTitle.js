@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const TitleStyles = styled.div`
+  cursor: default;
   color: ${(props) => props.color};
   .hLine {
     width: 100%;

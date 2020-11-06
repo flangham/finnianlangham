@@ -19,6 +19,16 @@ html {
   --grid-height: 170px;
 }
 
+::selection {
+  background: var(--orange); /* WebKit/Blink Browsers */
+  color: var(--blue);
+}
+
+::-moz-selection {
+  background: var(--orange); /* WebKit/Blink Browsers */
+  color: var(--blue);
+}
+
 body {
   font-family: Space Mono, monospace;
   background: var(--white);

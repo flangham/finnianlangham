@@ -3,6 +3,7 @@ import Container from './Container';
 import HeaderLogo from './HeaderLogo';
 
 const HeaderStyles = styled.header`
+  cursor: default;
   height: 100vh;
   min-height: 430px;
   background: var(--blue);
@@ -117,7 +118,7 @@ export default function Header() {
               <h1>Finnian Langham</h1>
               <p>
                 is a front-end <span className="orange">developer</span> &amp; <span className="orange">designer</span>.
-                He primarily works with creatives, helping to make their digital visions a reality.
+                He primarily works with artists and creatives, helping to make their digital visions a reality.
               </p>
               <p className="arrow">↓</p>
             </div>

@@ -4,6 +4,7 @@ const FooterStyles = styled.footer`
   color: var(--white);
   background: var(--blue);
   font-size: 11px;
+  cursor: default;
 
   .copyright {
     font-family: sans-serif;
