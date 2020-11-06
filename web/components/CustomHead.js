@@ -4,7 +4,7 @@ export default function CustomHead() {
   return (
     <Head>
       <title>Finnian Langham | Front-End Developer &amp; Designer</title>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174218290-1" />
+      {/* <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174218290-1" />
       <script
         dangerouslySetInnerHTML={{
           __html: `
@@ -15,7 +15,7 @@ export default function CustomHead() {
                 gtag('js', new Date());
                 gtag('config', 'UA-174218290-1');`,
         }}
-      />
+      /> */}
       <link
         href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,700&display=swap"
         rel="stylesheet"
