@@ -19,6 +19,7 @@ export default function Home({ projects }) {
 
 export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == 'project']`);
+
   return {
     props: {
       projects,
