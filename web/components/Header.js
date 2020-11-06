@@ -37,7 +37,7 @@ const HeaderStyles = styled.header`
   }
 
   .arrow {
-    font-size: 3em;
+    font-size: 4.2em;
   }
 
   @media (hover: hover) and (pointer: fine) {
