@@ -107,7 +107,7 @@ export default function Header() {
         setArrowStyle({ bottom: 'var(--pad)' });
       }
     };
-    window.addEventListener('resize', checkHeight);
+    window.addEventListener('touchmove', checkHeight);
     checkHeight();
   }, []);
 
