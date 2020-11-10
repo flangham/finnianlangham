@@ -31,9 +31,9 @@ const HeaderStyles = styled.header`
     margin: auto;
   }
 
-  .header-words {
+  /* .header-words {
     opacity: 0;
-  }
+  } */
 
   .name {
     font-weight: bold;
@@ -116,13 +116,13 @@ const HeaderStyles = styled.header`
 `;
 
 export default function Header() {
-  useEffect(() => {
-    gsap.to('.header-words', {
-      opacity: 1,
-      duration: 2.4,
-      ease: 'power4.out',
-    });
-  });
+  // useEffect(() => {
+  //   gsap.to('.header-words', {
+  //     opacity: 1,
+  //     duration: 2.4,
+  //     ease: 'power4.out',
+  //   });
+  // });
 
   return (
     <HeaderStyles>

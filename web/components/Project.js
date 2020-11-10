@@ -13,9 +13,6 @@ const ProjectStyles = styled.div`
   border-radius: 5px;
   margin-bottom: var(--pad);
 
-  /* opacity: 0;
-  transform: translateY(60px); */
-
   .project-container {
     width: 100%;
     height: 100%;
@@ -77,49 +74,46 @@ const ProjectStyles = styled.div`
 `;
 
 export default function Project({ name, image, url, slug }) {
-  const intersectionThreshold = 0.3;
-
   const projectRef = useRef(null);
+  // const intersectionThreshold = 0.3;
 
-  const intersection = useIntersection(projectRef, {
-    root: null,
-    rootMargin: '0px',
-    threshold: intersectionThreshold,
-  });
+  // const intersection = useIntersection(projectRef, {
+  //   root: null,
+  //   rootMargin: '0px',
+  //   threshold: intersectionThreshold,
+  // });
 
-  const fadeIn = (element) => {
-    gsap.to(element, {
-      opacity: 1,
-      transform: 'translateY(0)',
-      duration: 1,
-      stagger: {
-        amount: 0.3,
-      },
-    });
-  };
+  // const fadeIn = (element) => {
+  //   gsap.to(element, {
+  //     opacity: 1,
+  //     transform: 'translateY(0)',
+  //     duration: 1,
+  //     stagger: {
+  //       amount: 0.3,
+  //     },
+  //   });
+  // };
 
-  const fadeOut = (element) => {
-    gsap.to(element, {
-      opacity: 0,
-      transform: 'translateY(60px)',
-      duration: 1,
-    });
-  };
+  // const fadeOut = (element) => {
+  //   gsap.to(element, {
+  //     opacity: 0,
+  //     transform: 'translateY(60px)',
+  //     duration: 1,
+  //   });
+  // };
 
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
-  // Set initial faded state
-  useEffect(() => {
-    fadeOut(`.${slug.current}`);
-  }, [slug]);
+  // useEffect(() => {
+  //   fadeOut(`.${slug.current}`);
+  // }, [slug]);
 
-  // Fade in when reached threshold
-  useEffect(() => {
-    if (intersection && intersection.intersectionRatio > intersectionThreshold) {
-      setIsVisible(true);
-    }
-    if (isVisible) fadeIn(`.${slug.current}`);
-  }, [isVisible, slug, intersection]);
+  // useEffect(() => {
+  //   if (intersection && intersection.intersectionRatio > intersectionThreshold) {
+  //     setIsVisible(true);
+  //   }
+  //   if (isVisible) fadeIn(`.${slug.current}`);
+  // }, [isVisible, slug, intersection]);
 
   const classes = `project-container ${slug.current}`;
 
