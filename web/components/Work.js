@@ -19,13 +19,13 @@ const WorkStyles = styled.section`
 
 export default function Work({ projects }) {
   return (
-    <WorkStyles>
+    <WorkStyles id="work">
       <Container>
         <SectionTitle color="var(--blue)" title="Work" />
         <div className="grid">
           {projects.map((project) => {
             const { image, name, slug, url } = project;
-            return <Project name={name} image={image} url={url} key={slug.current} />;
+            return <Project name={name} image={image} url={url} key={slug.current} slug={slug} />;
           })}
         </div>
       </Container>

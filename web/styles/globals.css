@@ -34,6 +34,7 @@ body {
   background: var(--white);
   color: var(--white);
   font-variant-ligatures: none;
+  scroll-behavior: smooth;
 }
 
 h1,

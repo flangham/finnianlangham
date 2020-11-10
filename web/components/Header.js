@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { useEffect } from 'react';
+import gsap from 'gsap';
 import Container from './Container';
 import HeaderLogo from './HeaderLogo';
 
@@ -28,6 +31,10 @@ const HeaderStyles = styled.header`
     margin: auto;
   }
 
+  .header-words {
+    opacity: 0;
+  }
+
   .name {
     font-weight: bold;
     font-style: italic;
@@ -39,12 +46,15 @@ const HeaderStyles = styled.header`
 
   .arrow {
     font-size: 4.2em;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    a:hover {
-      opacity: 0.5;
-    }
+    font-family: Space Mono, monospace;
+    border: none;
+    line-height: 0.8;
+    display: flex;
+    align-items: center;
+    background: none;
+    color: var(--white);
+    cursor: pointer;
+    text-decoration: none;
   }
 
   @media (min-width: 430px) {
@@ -106,6 +116,14 @@ const HeaderStyles = styled.header`
 `;
 
 export default function Header() {
+  useEffect(() => {
+    gsap.to('.header-words', {
+      opacity: 1,
+      duration: 2.4,
+      ease: 'power4.out',
+    });
+  });
+
   return (
     <HeaderStyles>
       <Container>
@@ -115,12 +133,17 @@ export default function Header() {
               <HeaderLogo />
             </div>
             <div className="col word-col">
-              <h1>Finnian Langham</h1>
-              <p>
-                is a front-end <span className="orange">developer</span> &amp; <span className="orange">designer</span>.
-                He primarily works with artists and creatives, helping to make their digital visions a reality.
-              </p>
-              <p className="arrow">↓</p>
+              <div className="header-words">
+                <h1>Finnian Langham</h1>
+                <p>
+                  is a front-end <span className="orange">developer</span> &amp;{' '}
+                  <span className="orange">designer</span>. He primarily works with artists and creatives, helping to
+                  make their digital visions a reality.
+                </p>
+              </div>
+              <AnchorLink href="#work" className="arrow">
+                ↓
+              </AnchorLink>
             </div>
           </div>
         </div>

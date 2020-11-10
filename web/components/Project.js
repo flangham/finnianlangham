@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import imageUrlBuilder from '@sanity/image-url';
+import { useRef, useEffect, useState } from 'react';
+import { useIntersection } from 'react-use';
+import gsap from 'gsap';
 import client from '../client';
 
 function urlFor(source) {
@@ -9,6 +12,9 @@ function urlFor(source) {
 const ProjectStyles = styled.div`
   border-radius: 5px;
   margin-bottom: var(--pad);
+
+  /* opacity: 0;
+  transform: translateY(60px); */
 
   .project-container {
     width: 100%;
@@ -70,10 +76,56 @@ const ProjectStyles = styled.div`
   }
 `;
 
-export default function Project({ name, image, url }) {
+export default function Project({ name, image, url, slug }) {
+  const intersectionThreshold = 0.3;
+
+  const projectRef = useRef(null);
+
+  const intersection = useIntersection(projectRef, {
+    root: null,
+    rootMargin: '0px',
+    threshold: intersectionThreshold,
+  });
+
+  const fadeIn = (element) => {
+    gsap.to(element, {
+      opacity: 1,
+      transform: 'translateY(0)',
+      duration: 1,
+      stagger: {
+        amount: 0.3,
+      },
+    });
+  };
+
+  const fadeOut = (element) => {
+    gsap.to(element, {
+      opacity: 0,
+      transform: 'translateY(60px)',
+      duration: 1,
+    });
+  };
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Set initial faded state
+  useEffect(() => {
+    fadeOut(`.${slug.current}`);
+  }, [slug]);
+
+  // Fade in when reached threshold
+  useEffect(() => {
+    if (intersection && intersection.intersectionRatio > intersectionThreshold) {
+      setIsVisible(true);
+    }
+    if (isVisible) fadeIn(`.${slug.current}`);
+  }, [isVisible, slug, intersection]);
+
+  const classes = `project-container ${slug.current}`;
+
   return (
-    <ProjectStyles>
-      <div className="project-container">
+    <ProjectStyles ref={projectRef}>
+      <div className={classes}>
         <a href={url}>
           <img src={urlFor(image).url()} alt={name} />
           <div className="hover-title">

@@ -14,11 +14,14 @@
     "@sanity/image-url": "^0.140.19",
     "babel-plugin-styled-components": "^1.11.1",
     "groq": "^2.0.1",
+    "gsap": "^3.5.1",
     "next": "10.0.1",
     "react": "17.0.1",
+    "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-device-detect": "^1.14.0",
     "react-dom": "17.0.1",
     "react-obfuscate": "^3.6.8",
+    "react-use": "^15.3.4",
     "styled-components": "^5.2.1"
   },
   "devDependencies": {
