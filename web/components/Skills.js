@@ -15,46 +15,46 @@ const SkillsStyles = styled.section`
 
 export default function Skills() {
   const sectionRef = useRef(null);
-  // const intersectionThreshold = 0.5;
+  const intersectionThreshold = 0.5;
 
-  // const intersection = useIntersection(sectionRef, {
-  //   root: null,
-  //   rootMargin: '0px',
-  //   threshold: intersectionThreshold,
-  // });
+  const intersection = useIntersection(sectionRef, {
+    root: null,
+    rootMargin: '0px',
+    threshold: intersectionThreshold,
+  });
 
-  // const fadeIn = (element) => {
-  //   gsap.to(element, {
-  //     opacity: 1,
-  //     transform: 'translateY(0)',
-  //     duration: 1,
-  //     stagger: {
-  //       amount: 0.4,
-  //     },
-  //     ease: 'power4.out',
-  //   });
-  // };
+  const fadeIn = (element) => {
+    gsap.to(element, {
+      opacity: 1,
+      transform: 'translateY(0)',
+      duration: 1,
+      stagger: {
+        amount: 0.4,
+      },
+      ease: 'power4.out',
+    });
+  };
 
-  // const fadeOut = (element) => {
-  //   gsap.to(element, {
-  //     opacity: 0,
-  //     transform: 'translateY(1.5em)',
-  //     duration: 0.6,
-  //   });
-  // };
+  const fadeOut = (element) => {
+    gsap.to(element, {
+      opacity: 0,
+      transform: 'translateY(1.5em)',
+      duration: 0.6,
+    });
+  };
 
-  // const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  // useEffect(() => {
-  //   fadeOut('li');
-  // }, []);
+  useEffect(() => {
+    fadeOut('li');
+  }, []);
 
-  // useEffect(() => {
-  //   if (intersection && intersection.intersectionRatio > intersectionThreshold) {
-  //     setIsVisible(true);
-  //   }
-  //   if (isVisible) fadeIn('li');
-  // }, [intersection, isVisible]);
+  useEffect(() => {
+    if (intersection && intersection.intersectionRatio > intersectionThreshold) {
+      setIsVisible(true);
+    }
+    if (isVisible) fadeIn('li');
+  }, [intersection, isVisible]);
 
   return (
     <SkillsStyles>
