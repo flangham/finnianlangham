@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useRef, useState, useEffect } from 'react';
+import 'intersection-observer';
 import { useIntersection } from 'react-use';
 import gsap from 'gsap';
 import SectionTitle from './SectionTitle';

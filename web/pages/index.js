@@ -4,14 +4,12 @@ import Work from '../components/Work';
 import Contact from '../components/Contact';
 import Skills from '../components/Skills';
 import Footer from '../components/Footer';
-// import Loader from '../components/Loader';
 import CustomHead from '../components/CustomHead';
 
 export default function Home({ projects }) {
   return (
     <>
       <CustomHead />
-      {/* <Loader /> */}
       <Header />
       <Work projects={projects} />
       <Skills />

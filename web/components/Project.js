@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import imageUrlBuilder from '@sanity/image-url';
 import { useRef, useEffect, useState } from 'react';
+import 'intersection-observer';
 import { useIntersection } from 'react-use';
 import gsap from 'gsap';
 import client from '../client';

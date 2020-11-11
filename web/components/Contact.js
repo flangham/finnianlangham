@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Obfuscate from 'react-obfuscate';
+import 'intersection-observer';
 import { useIntersection } from 'react-use';
 import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
