@@ -25,7 +25,7 @@ const ContactStyles = styled.section`
 
 export default function Work() {
   const sectionRef = useRef(null);
-  const intersectionThreshold = 0.9;
+  const intersectionThreshold = 0.7;
 
   const intersection = useIntersection(sectionRef, {
     root: null,
