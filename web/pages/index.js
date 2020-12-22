@@ -21,6 +21,7 @@ export default function Home({ projects }) {
 
 export async function getStaticProps() {
   const projects = await client.fetch(`*[_type == 'project']`);
+  // const folio = await client.fetch(`*[_type == 'folio'][0].selected_projects`);
 
   return {
     props: {
