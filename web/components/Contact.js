@@ -12,8 +12,8 @@ const ContactStyles = styled.section`
   color: var(--blue);
   a {
     color: var(--blue);
-    display: block;
-    text-align: end;
+    /* display: block; */
+    text-align: start;
   }
 
   @media (hover: hover) and (pointer: fine) {
