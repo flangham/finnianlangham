@@ -15,7 +15,7 @@ const FooterStyles = styled.footer`
   }
 
   width: 100%;
-  height: 3em;
+  height: 5em;
   display: flex;
   align-items: center;
 `;
