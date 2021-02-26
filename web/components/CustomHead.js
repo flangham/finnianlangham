@@ -23,14 +23,14 @@ export default function CustomHead() {
       <link rel="icon" type="image/png" href="/favicon.png" />
       <meta
         name="description"
-        content="Finnian Langham is a front-end developer &amp; designer. He primarily works with creatives, helping to make their digital visions a reality."
+        content="Finnian Langham makes cool things on the internet. He primarily works with creatives, helping to make their digital visions a reality."
       />
       <meta property="og:title" content="Finnian Langham | Front-end Developer &amp; Designer" />
       <meta property="og:type" content="Website" />
       <meta property="og:url" content="https://finnianlangham.com/" />
       <meta
         property="og:description"
-        content="Finnian Langham is a front-end developer &amp; designer. He primarily works with creatives, helping to make their digital visions a reality."
+        content="Finnian Langham makes cool things on the internet. He primarily works with creatives, helping to make their digital visions a reality."
       />
       <meta property="og:image" content="/og-image.png" />
     </Head>
