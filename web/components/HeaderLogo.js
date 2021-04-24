@@ -47,31 +47,31 @@ const LogoStyles = styled.div`
 `;
 
 export default function HeaderLogo() {
-  const transformScale = 20;
-  const [style, setStyle] = useState({ transform: 'rotate3d(0, 0, 0, 0)' });
+  // const transformScale = 20;
+  // const [style, setStyle] = useState({ transform: 'rotate3d(0, 0, 0, 0)' });
 
-  const listnerFunction = function (e) {
-    if (window.innerWidth < 430) return;
-    const windowX = window.innerWidth;
-    const windowY = window.innerHeight;
-    const mouseX = e.clientX - windowX / 2;
-    const mouseY = e.clientY - windowY / 2;
-    setStyle({ transform: `rotateY(${mouseX / transformScale}deg) rotateX(${-mouseY / transformScale}deg)` });
-  };
+  // const listnerFunction = function (e) {
+  //   if (window.innerWidth < 430) return;
+  //   const windowX = window.innerWidth;
+  //   const windowY = window.innerHeight;
+  //   const mouseX = e.clientX - windowX / 2;
+  //   const mouseY = e.clientY - windowY / 2;
+  //   setStyle({ transform: `rotateY(${mouseX / transformScale}deg) rotateX(${-mouseY / transformScale}deg)` });
+  // };
 
-  useEffect(() => {
-    window.addEventListener('mousemove', listnerFunction);
-    return function cleanup() {
-      window.removeEventListener('mousemove', listnerFunction);
-    };
-  });
+  // useEffect(() => {
+  //   window.addEventListener('mousemove', listnerFunction);
+  //   return function cleanup() {
+  //     window.removeEventListener('mousemove', listnerFunction);
+  //   };
+  // });
 
   return (
     <LogoStyles>
       <div className="container">
         <div className="logo">
           <svg
-            style={style}
+            // style={style}
             width="283"
             height="301"
             viewBox="0 0 283 301"
@@ -86,7 +86,7 @@ export default function HeaderLogo() {
         </div>
         <div className="logo">
           <svg
-            style={style}
+            // style={style}
             width="283"
             height="301"
             viewBox="0 0 283 301"
@@ -101,7 +101,7 @@ export default function HeaderLogo() {
         </div>
         <div className="logo">
           <svg
-            style={style}
+            // style={style}
             width="283"
             height="301"
             viewBox="0 0 283 301"

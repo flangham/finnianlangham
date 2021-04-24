@@ -121,7 +121,7 @@ export default function Project({ name, image, url, slug }) {
   return (
     <ProjectStyles ref={projectRef}>
       <div className={classes}>
-        <a href={url}>
+        <a href={url} target="_blank" rel="noopener noreferrer">
           <img src={urlFor(image).url()} alt={name} />
           <div className="hover-title">
             <h3>{name}</h3>

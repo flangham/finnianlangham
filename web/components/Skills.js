@@ -11,6 +11,7 @@ const SkillsStyles = styled.section`
   color: var(--white);
   ul {
     padding-left: calc(var(--pad) + 0.2em);
+    margin-bottom: 1em;
   }
 `;
 

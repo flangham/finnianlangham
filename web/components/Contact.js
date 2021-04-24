@@ -10,6 +10,7 @@ import Container from './Container';
 const ContactStyles = styled.section`
   background-color: var(--white);
   color: var(--blue);
+  margin-bottom: 1em;
   a {
     color: var(--blue);
     /* display: block; */

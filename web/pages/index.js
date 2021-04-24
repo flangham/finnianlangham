@@ -6,12 +6,12 @@ import Skills from '../components/Skills';
 import Footer from '../components/Footer';
 import CustomHead from '../components/CustomHead';
 
-export default function Home({ projects }) {
+export default function Home({ folio }) {
   return (
     <>
       <CustomHead />
       <Header />
-      <Work projects={projects} />
+      <Work folio={folio} />
       <Skills />
       <Contact />
       <Footer />
@@ -20,12 +20,18 @@ export default function Home({ projects }) {
 }
 
 export async function getStaticProps() {
-  const projects = await client.fetch(`*[_type == 'project']`);
-  // const folio = await client.fetch(`*[_type == 'folio'][0].selected_projects`);
+  const folio = await client.fetch(`*[_type == 'folio'][0].selected_projects{
+    "project": *[_type == 'project' && _id == ^._ref]{
+      image,
+      name,
+      slug,
+      url
+    }
+  }`);
 
   return {
     props: {
-      projects,
+      folio,
     },
   };
 }

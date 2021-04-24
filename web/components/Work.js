@@ -12,19 +12,19 @@ const WorkStyles = styled.section`
     grid-template-columns: repeat(auto-fill, var(--grid-width));
     grid-gap: calc(var(--pad) / 2) calc(var(--pad) * 2);
     max-width: 1200px;
-    margin: 0 auto var(--pad);
-    margin: auto;
+    margin: 2em auto 0;
   }
 `;
 
-export default function Work({ projects }) {
+export default function Work({ folio }) {
   return (
     <WorkStyles id="work">
       <Container>
         <SectionTitle color="var(--blue)" title="Work" />
         <div className="grid">
-          {projects.map((project) => {
-            const { image, name, slug, url } = project;
+          {folio.map(({ project }) => {
+            const data = project[0];
+            const { image, name, slug, url } = data;
             return <Project name={name} image={image} url={url} key={slug.current} slug={slug} />;
           })}
         </div>
