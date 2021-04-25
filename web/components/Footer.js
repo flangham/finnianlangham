@@ -5,6 +5,13 @@ const FooterStyles = styled.footer`
   background: var(--blue);
   font-size: 11px;
   cursor: default;
+  a {
+    color: inherit;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   .copyright {
     font-family: sans-serif;
@@ -26,7 +33,10 @@ export default function Footer() {
   return (
     <FooterStyles>
       <p>
-        <span className="copyright">©</span> Finnian Langham {year}
+        <span className="copyright">©</span> Finnian Langham {year} | Background animation by{' '}
+        <a href="https://codepen.io/mladen___/pen/gbvqBo?editors=1010" target="_blank" rel="noreferrer noopener">
+          Mladen Stanojevic
+        </a>
       </p>
     </FooterStyles>
   );
