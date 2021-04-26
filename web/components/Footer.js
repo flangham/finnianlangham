@@ -5,6 +5,13 @@ const FooterStyles = styled.footer`
   background: var(--blue);
   font-size: 11px;
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 2em;
+  align-items: center;
+
   a {
     color: inherit;
     text-decoration: none;
@@ -16,15 +23,22 @@ const FooterStyles = styled.footer`
   .copyright {
     font-family: sans-serif;
   }
+
   p {
-    width: 100%;
     text-align: center;
+    white-space: pre;
   }
 
-  width: 100%;
-  height: 5em;
-  display: flex;
-  align-items: center;
+  .divider {
+    display: none;
+  }
+
+  @media (min-width: 800px) {
+    flex-direction: row;
+    .divider {
+      display: inline;
+    }
+  }
 `;
 
 export default function Footer() {
@@ -33,7 +47,11 @@ export default function Footer() {
   return (
     <FooterStyles>
       <p>
-        <span className="copyright">©</span> Finnian Langham {year} | Background animation by{' '}
+        <span className="copyright">©</span> Finnian Langham {year}
+      </p>
+      <p>
+        <span className="divider"> | </span>
+        Background animation by{' '}
         <a href="https://codepen.io/mladen___/pen/gbvqBo?editors=1010" target="_blank" rel="noreferrer noopener">
           Mladen Stanojevic
         </a>

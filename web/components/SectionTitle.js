@@ -8,7 +8,7 @@ const TitleStyles = styled.div`
     height: 3px;
     background-color: ${(props) => props.color};
   }
-  margin-bottom: var(--pad);
+  margin-bottom: 1em;
 `;
 
 export default function SectionTitle({ title, color }) {

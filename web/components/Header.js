@@ -10,7 +10,6 @@ const HeaderStyles = styled.header`
   height: 100vh;
   min-height: 430px;
   background: var(--blue);
-  /* background: transparent; */
   color: var(--white);
   position: relative;
   display: flex;
@@ -36,6 +35,7 @@ const HeaderStyles = styled.header`
 
   .image-col {
     height: 180px;
+    opacity: 0;
   }
 
   .header-content {
@@ -69,6 +69,7 @@ const HeaderStyles = styled.header`
     color: var(--white);
     cursor: pointer;
     text-decoration: none;
+    opacity: 0;
   }
 
   @media (min-width: 430px) {
@@ -130,12 +131,17 @@ const HeaderStyles = styled.header`
 `;
 
 export default function Header() {
+  const animationProps = {
+    opacity: 1,
+    duration: 5,
+    ease: 'power4.out',
+    delay: 0.2,
+  };
+
   useEffect(() => {
-    gsap.to('.header-words', {
-      opacity: 1,
-      duration: 2.4,
-      ease: 'power4.out',
-    });
+    gsap.to('.header-words', animationProps);
+    gsap.to('.image-col', animationProps);
+    gsap.to('.arrow', animationProps);
   });
 
   useEffect(() => {

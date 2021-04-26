@@ -5,19 +5,21 @@ import { useIntersection } from 'react-use';
 import gsap from 'gsap';
 import SectionTitle from './SectionTitle';
 import Container from './Container';
+import { animationIn, animationOut } from './utilities/textAnimation';
 
 const SkillsStyles = styled.section`
   background-color: var(--orange);
   color: var(--white);
   ul {
     padding-left: calc(var(--pad) + 0.2em);
+    padding-left: 2em;
     margin-bottom: 1em;
   }
 `;
 
 export default function Skills() {
   const sectionRef = useRef(null);
-  const intersectionThreshold = 0.5;
+  const intersectionThreshold = 0.3;
 
   const intersection = useIntersection(sectionRef, {
     root: null,
@@ -26,23 +28,11 @@ export default function Skills() {
   });
 
   const fadeIn = (element) => {
-    gsap.to(element, {
-      opacity: 1,
-      transform: 'translateY(0)',
-      duration: 1,
-      stagger: {
-        amount: 0.4,
-      },
-      ease: 'power4.out',
-    });
+    gsap.to(element, animationIn);
   };
 
   const fadeOut = (element) => {
-    gsap.to(element, {
-      opacity: 0,
-      transform: 'translateY(1.5em)',
-      duration: 0.6,
-    });
+    gsap.to(element, animationOut);
   };
 
   const [isVisible, setIsVisible] = useState(false);
