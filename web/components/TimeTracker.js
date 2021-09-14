@@ -1,0 +1,200 @@
+import React, { useState } from 'react';
+import styled from 'styled-components';
+
+const TimeTrackerStyles = styled.section`
+  color: var(--blue);
+  padding: 0.5em;
+  font-family: Arial;
+
+  h1 {
+    text-align: center;
+    font-style: normal;
+    color: black;
+  }
+
+  button,
+  input {
+    font-family: inherit;
+    padding: 0.5em 1em;
+    font-size: 16px;
+  }
+
+  form {
+    width: 400px;
+    margin: 0.5em auto;
+  }
+
+  .add-job {
+    margin-right: 0.5em;
+  }
+  a {
+    color: var(--blue);
+    display: block;
+    text-align: end;
+  }
+
+  .timers {
+    width: 100%;
+  }
+
+  .stopwatch {
+    border: 1px solid black;
+    border-radius: 25px;
+    margin: auto;
+    overflow: hidden;
+    font-weight: bold;
+    font-size: 16px;
+    width: 400px;
+    button {
+      cursor: pointer;
+      font-weight: inherit;
+      font-size: inherit;
+    }
+    .job {
+      background: black;
+      color: white;
+      font-size: 16px;
+      padding: 0.5em 1.5em;
+    }
+    .times {
+      padding: 0.5em 1.5em;
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid black;
+    }
+    .buttons {
+      display: flex;
+    }
+    .start {
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      flex: 1;
+      border-right: 1px solid black;
+    }
+    .remove {
+      background: red;
+      color: white;
+      padding: 0.5em 1.5em 0.5em 1em;
+      border: none;
+    }
+  }
+  .notes {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border: 1px solid red;
+    background: white;
+    width: 200px;
+    font-size: 14px;
+    color: black;
+    padding: 1em;
+  }
+`;
+
+function StopWatch({ job, remove }) {
+  const [time, setTime] = useState(0);
+  const [isCounting, setIsCounting] = useState(false);
+  const [timerID, setTimerID] = useState('');
+
+  const runTimer = () => setTimerID(setInterval(() => setTime((prev) => prev + 1), 1000));
+  const stopTimer = () => clearInterval(timerID);
+
+  const handleStartClick = () => {
+    if (!isCounting) {
+      runTimer();
+      setIsCounting(true);
+    } else {
+      stopTimer();
+      setIsCounting(false);
+    }
+  };
+
+  const timeToHours = () => Math.floor(time / 60 / 60);
+  const timeToMinutes = () => Math.floor(time / 60) % 60;
+  const timeToSeconds = () => Math.floor(time % 60);
+
+  return (
+    <TimeTrackerStyles>
+      <div className="stopwatch">
+        <p className="job">{job}</p>
+        <div className="times">
+          <span>Hours: {timeToHours()}</span>
+          <span>Minutes: {timeToMinutes()}</span>
+          <span>Seconds: {timeToSeconds()}</span>
+        </div>
+        <div className="buttons">
+          <button
+            style={{ background: isCounting ? '#EEAE2B' : '#29BA2A' }}
+            className="start"
+            type="button"
+            onClick={handleStartClick}
+          >
+            {isCounting ? 'PAUSE' : 'START'}
+          </button>
+          <button className="remove" type="button" onClick={remove}>
+            X
+          </button>
+        </div>
+      </div>
+    </TimeTrackerStyles>
+  );
+}
+
+export default function TimeTracker() {
+  const [jobs, setJobs] = useState([]);
+  const [input, setInput] = useState('');
+  const addJob = () => {
+    setJobs([...jobs, input]);
+    setInput('');
+  };
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    if (input.length === 0) return;
+    addJob();
+  };
+
+  const removeItem = (job) => {
+    setJobs((prev) => prev.filter((a) => a !== job));
+  };
+
+  return (
+    <TimeTrackerStyles>
+      <h1>TimeTracker</h1>
+      <div className="timers">
+        <form onSubmit={submitForm}>
+          <input
+            onChange={(e) => setInput(e.target.value)}
+            className="add-job"
+            value={input}
+            type="text"
+            placeholder="New Job"
+            onSubmit={addJob}
+          />
+          <button disabled={input.length === 0} type="button" onClick={addJob}>
+            Add
+          </button>
+        </form>
+
+        {jobs.map((job) => (
+          <StopWatch key={job} job={job} remove={() => removeItem(job)} />
+        ))}
+      </div>
+      <div className="notes">
+        <p>
+          <strong>Bugs</strong>
+          <br />
+          - Creating multiple jobs with the same name breaks the logic
+          <br />
+          <br />
+          <strong>To do</strong>
+          <br />- Save current list of jobs (not current time) to local storage so you don't have to add regular jobs
+          each day
+        </p>
+      </div>
+    </TimeTrackerStyles>
+  );
+}

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default function CustomHead() {
+export default function CustomHead({ children }) {
   return (
     <Head>
       <title>Finnian Langham | Front-End Developer &amp; Designer</title>
@@ -33,6 +33,7 @@ export default function CustomHead() {
         content="Finnian Langham makes cool things on the internet. He primarily works with creatives, helping to make their digital visions a reality."
       />
       <meta property="og:image" content="/og-image.png" />
+      {children}
     </Head>
   );
 }
