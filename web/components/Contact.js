@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import SectionTitle from './SectionTitle';
 import Container from './Container';
-import { animationIn, animationOut } from './utilities/textAnimation';
+import { animationIn, animationOut } from '../utilities/textAnimation';
 
 const ContactStyles = styled.section`
   background-color: var(--white);

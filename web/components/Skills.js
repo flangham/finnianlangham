@@ -5,7 +5,7 @@ import { useIntersection } from 'react-use';
 import gsap from 'gsap';
 import SectionTitle from './SectionTitle';
 import Container from './Container';
-import { animationIn, animationOut } from './utilities/textAnimation';
+import { animationIn, animationOut } from '../utilities/textAnimation';
 
 const SkillsStyles = styled.section`
   background-color: var(--orange);

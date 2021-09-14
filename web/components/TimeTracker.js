@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import uuid from 'react-uuid';
+import useInterval from '../hooks/useInterval';
 
 const TimeTrackerStyles = styled.section`
   color: var(--blue);
@@ -158,19 +159,26 @@ const TimeTrackerStyles = styled.section`
 
 function StopWatch({ job, remove }) {
   const [time, setTime] = useState(0);
+  const [saved, setSaved] = useState(0);
+  const [startTime, setStartTime] = useState('');
   const [isCounting, setIsCounting] = useState(false);
-  const [timerID, setTimerID] = useState('');
 
-  const runTimer = () => setTimerID(setInterval(() => setTime((prev) => prev + 1), 1000));
-  const stopTimer = () => clearInterval(timerID);
+  const msToS = (ms) => Math.floor(ms / 1000);
+
+  useInterval(
+    () => {
+      setTime(saved + (msToS(Date.now()) - msToS(startTime)));
+    },
+    isCounting ? 1000 : null
+  );
 
   const handleStartClick = () => {
     if (!isCounting) {
-      runTimer();
+      setStartTime(Date.now());
       setIsCounting(true);
     } else {
-      stopTimer();
       setIsCounting(false);
+      setSaved(time);
     }
   };
 
@@ -261,8 +269,8 @@ export default function TimeTracker() {
         </form>
         <div className="grid">
           {jobs.map((job) => (
-            <div className="gridItem">
-              <StopWatch key={job.uuid} job={job.jobName} remove={() => removeItem(job.uuid)} />
+            <div key={job.uuid} className="gridItem">
+              <StopWatch job={job.jobName} remove={() => removeItem(job.uuid)} />
             </div>
           ))}
         </div>
