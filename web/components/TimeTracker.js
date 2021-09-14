@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import uuid from 'react-uuid';
 
 const TimeTrackerStyles = styled.section`
   color: var(--blue);
@@ -50,12 +51,52 @@ const TimeTrackerStyles = styled.section`
       font-weight: inherit;
       font-size: inherit;
     }
+    .jobline {
+      display: flex;
+      justify-content: space-between;
+      height: 100%;
+      position: relative;
+    }
     .job {
       background: black;
       color: white;
       font-size: 16px;
       padding: 0.5em 1.5em;
+      flex: 1;
     }
+    .spinner {
+      width: 60px;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .animation {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 5px solid white;
+      border-left: 5px solid transparent;
+      animation: spin infinite linear 2s;
+      will-change: transform;
+      transition: 0.2s;
+      opacity: 0;
+    }
+    .visible {
+      opacity: 1;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
     .times {
       padding: 0.5em 1.5em;
       color: black;
@@ -119,7 +160,12 @@ function StopWatch({ job, remove }) {
   return (
     <TimeTrackerStyles>
       <div className="stopwatch">
-        <p className="job">{job}</p>
+        <div className="jobline">
+          <p className="job">{job}</p>
+          <div className="spinner">
+            <div className={['animation', isCounting ? 'visible' : null].join(' ')} />
+          </div>
+        </div>
         <div className="times">
           <span>Hours: {timeToHours()}</span>
           <span>Minutes: {timeToMinutes()}</span>
@@ -144,12 +190,26 @@ function StopWatch({ job, remove }) {
 }
 
 export default function TimeTracker() {
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedJobs = localStorage.getItem('timetracker-jobs');
+      if (savedJobs) return JSON.parse(savedJobs);
+    }
+    return [];
+  });
   const [input, setInput] = useState('');
   const addJob = () => {
-    setJobs([...jobs, input]);
+    setJobs([...jobs, { jobName: input, uuid: uuid() }]);
     setInput('');
   };
+
+  useEffect(() => {
+    // localstorage only supports storing strings as keys and values.
+    // Therefore we cannot store arrays and objects
+    // without converting the object into a string first.
+    // JSON.stringify will convert the object into a JSON string.
+    localStorage.setItem('timetracker-jobs', JSON.stringify(jobs));
+  }, [jobs]);
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -157,8 +217,8 @@ export default function TimeTracker() {
     addJob();
   };
 
-  const removeItem = (job) => {
-    setJobs((prev) => prev.filter((a) => a !== job));
+  const removeItem = (id) => {
+    setJobs((prev) => prev.filter((a) => a.uuid !== id));
   };
 
   return (
@@ -180,20 +240,8 @@ export default function TimeTracker() {
         </form>
 
         {jobs.map((job) => (
-          <StopWatch key={job} job={job} remove={() => removeItem(job)} />
+          <StopWatch key={job.uuid} job={job.jobName} remove={() => removeItem(job.uuid)} />
         ))}
-      </div>
-      <div className="notes">
-        <p>
-          <strong>Bugs</strong>
-          <br />
-          - Creating multiple jobs with the same name breaks the logic
-          <br />
-          <br />
-          <strong>To do</strong>
-          <br />- Save current list of jobs (not current time) to local storage so you don't have to add regular jobs
-          each day
-        </p>
       </div>
     </TimeTrackerStyles>
   );
