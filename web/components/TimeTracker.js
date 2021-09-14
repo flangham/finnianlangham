@@ -4,7 +4,6 @@ import uuid from 'react-uuid';
 
 const TimeTrackerStyles = styled.section`
   color: var(--blue);
-  padding: 0.5em;
   font-family: Arial;
 
   h1 {
@@ -34,18 +33,40 @@ const TimeTrackerStyles = styled.section`
     text-align: end;
   }
 
-  .timers {
-    width: 100%;
+  .grid {
+    display: grid;
+    justify-content: center;
+  }
+
+  @media (min-width: 840px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+      width: 840px;
+      margin: auto;
+    }
+
+    .gridItem {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .grid {
+      grid-template-columns: 1fr 1fr 1fr;
+      width: 1280px;
+    }
   }
 
   .stopwatch {
     border: 1px solid black;
     border-radius: 25px;
-    margin: auto;
     overflow: hidden;
     font-weight: bold;
     font-size: 16px;
     width: 400px;
+    margin: 0.5em 0;
     button {
       cursor: pointer;
       font-weight: inherit;
@@ -238,10 +259,13 @@ export default function TimeTracker() {
             Add
           </button>
         </form>
-
-        {jobs.map((job) => (
-          <StopWatch key={job.uuid} job={job.jobName} remove={() => removeItem(job.uuid)} />
-        ))}
+        <div className="grid">
+          {jobs.map((job) => (
+            <div className="gridItem">
+              <StopWatch key={job.uuid} job={job.jobName} remove={() => removeItem(job.uuid)} />
+            </div>
+          ))}
+        </div>
       </div>
     </TimeTrackerStyles>
   );
