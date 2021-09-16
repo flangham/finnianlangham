@@ -87,15 +87,15 @@ const TimeTrackerStyles = styled.section`
       flex: 1;
     }
     .spinner {
-      width: 60px;
       height: 100%;
-      position: absolute;
       right: 0;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: black;
     }
     .animation {
+      margin: 0 1em 0 0;
       width: 20px;
       height: 20px;
       border-radius: 50%;
@@ -119,9 +119,14 @@ const TimeTrackerStyles = styled.section`
       }
     }
 
+    .times-row {
+      display: flex;
+    }
+
     .times {
       padding: 0.5em 1.5em;
       color: black;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -136,6 +141,12 @@ const TimeTrackerStyles = styled.section`
       padding: 0.5em 1em;
       flex: 1;
       border-right: 1px solid black;
+    }
+    .reset {
+      color: black;
+      background: white;
+      border: none;
+      padding: 0.5em 1em;
     }
     .remove {
       background: red;
@@ -157,8 +168,18 @@ const TimeTrackerStyles = styled.section`
   }
 `;
 
-function StopWatch({ job, remove }) {
-  const [time, setTime] = useState(0);
+export const updateJobTime = (setFunction, id, t) => {
+  setFunction((prev) => prev.map((j) => (j.uuid === id ? { ...j, time: t } : j)));
+};
+
+function StopWatch({ job, remove, id, setFunction }) {
+  const [time, setTime] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const savedJobs = localStorage.getItem('timetracker-jobs');
+      if (savedJobs) return JSON.parse(savedJobs).filter((i) => i.uuid === id)[0].time;
+    }
+    return 0;
+  });
   const [saved, setSaved] = useState(0);
   const [startTime, setStartTime] = useState('');
   const [isCounting, setIsCounting] = useState(false);
@@ -168,19 +189,28 @@ function StopWatch({ job, remove }) {
   useInterval(
     () => {
       setTime(saved + (msToS(Date.now()) - msToS(startTime)));
+      updateJobTime(setFunction, id, time);
     },
     isCounting ? 1000 : null
   );
 
-  const handleStartClick = () => {
-    if (!isCounting) {
-      setStartTime(Date.now());
-      setIsCounting(true);
-    } else {
-      setIsCounting(false);
-      setSaved(time);
-    }
+  const startCount = () => {
+    setStartTime(Date.now());
+    setIsCounting(true);
   };
+
+  const stopCount = () => {
+    setIsCounting(false);
+    setSaved(time);
+  };
+
+  const resetCount = () => {
+    if (isCounting) stopCount();
+    setTime(0);
+    setSaved(0);
+  };
+
+  const handleStartClick = () => (isCounting ? stopCount() : startCount());
 
   const timeToHours = () => Math.floor(time / 60 / 60);
   const timeToMinutes = () => Math.floor(time / 60) % 60;
@@ -193,12 +223,17 @@ function StopWatch({ job, remove }) {
           <p className="job">{job}</p>
           <div className="spinner">
             <div className={['animation', isCounting ? 'visible' : null].join(' ')} />
+            <button className="remove" type="button" onClick={remove}>
+              X
+            </button>
           </div>
         </div>
-        <div className="times">
-          <span>Hours: {timeToHours()}</span>
-          <span>Minutes: {timeToMinutes()}</span>
-          <span>Seconds: {timeToSeconds()}</span>
+        <div className="times-row">
+          <div className="times">
+            <span>Hours: {timeToHours()}</span>
+            <span>Minutes: {timeToMinutes()}</span>
+            <span>Seconds: {timeToSeconds()}</span>
+          </div>
         </div>
         <div className="buttons">
           <button
@@ -209,8 +244,8 @@ function StopWatch({ job, remove }) {
           >
             {isCounting ? 'PAUSE' : 'START'}
           </button>
-          <button className="remove" type="button" onClick={remove}>
-            X
+          <button className="reset" type="button" onClick={resetCount}>
+            RESET
           </button>
         </div>
       </div>
@@ -226,17 +261,21 @@ export default function TimeTracker() {
     }
     return [];
   });
+
   const [input, setInput] = useState('');
+
   const addJob = () => {
-    setJobs([...jobs, { jobName: input, uuid: uuid() }]);
+    setJobs([...jobs, { jobName: input, uuid: uuid(), time: 0 }]);
     setInput('');
   };
 
+  // useEffect(() => {
+  //   console.log(jobs);
+  // }, [jobs]);
+
   useEffect(() => {
-    // localstorage only supports storing strings as keys and values.
-    // Therefore we cannot store arrays and objects
-    // without converting the object into a string first.
-    // JSON.stringify will convert the object into a JSON string.
+    // Localstorage only supports storing strings as keys and values.
+    // Must convert the object into a string first.
     localStorage.setItem('timetracker-jobs', JSON.stringify(jobs));
   }, [jobs]);
 
@@ -270,7 +309,13 @@ export default function TimeTracker() {
         <div className="grid">
           {jobs.map((job) => (
             <div key={job.uuid} className="gridItem">
-              <StopWatch job={job.jobName} remove={() => removeItem(job.uuid)} />
+              <StopWatch
+                job={job.jobName}
+                id={job.uuid}
+                setFunction={setJobs}
+                updateJobTime={updateJobTime}
+                remove={() => removeItem(job.uuid)}
+              />
             </div>
           ))}
         </div>
