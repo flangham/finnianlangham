@@ -62,6 +62,15 @@ const TimeTrackerStyles = styled.section`
 `;
 
 export default function TimeTracker() {
+  // Prevent accidently closing
+  useEffect(() => {
+    window.addEventListener('beforeunload', (e) => {
+      e.preventDefault();
+      e.returnValue = 'Warning';
+      return 'Warning';
+    });
+  });
+
   const [jobs, setJobs] = useState(() => {
     if (typeof window !== 'undefined') {
       const savedJobs = localStorage.getItem('timetracker-jobs');
